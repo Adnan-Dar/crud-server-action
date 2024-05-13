@@ -1,18 +1,6 @@
 {
   "products": [
     {
-      "id": "3",
-      "name": "Product 300000",
-      "category": "Category 3",
-      "price": "3000000000000"
-    },
-    {
-      "id": "4",
-      "name": "Product 4",
-      "category": "Category 4",
-      "price": 400
-    },
-    {
       "id": "5",
       "name": "Product 5",
       "category": "Category 5",
@@ -119,6 +107,12 @@
       "name": "abc",
       "price": 123,
       "category": "abc"
+    },
+    {
+      "id": "3aa7",
+      "name": "Adnan",
+      "price": "17",
+      "category": "17"
     }
   ]
 }

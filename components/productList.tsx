@@ -9,34 +9,26 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-  } from "@/components/ui/pagination"
-  
-import { Product } from "@/types/product"; // Import Product type
-import { useState } from "react";
-import Button from "@/components/custom-button"
-import { EditButton } from "@/components/edit-button";
 
+import { Product } from "@/types/product";
+import { useState } from "react";
+import Button from "@/components/custom-button";
+import { EditButton } from "@/components/edit-button";
+import { AddProduct } from "@/components/add-button";
+import { DeleteButton } from "@/components/del-button";
+import { deleteProduct } from "@/actions/products";
 
 interface TableProps {
-  data : Product[];
+  data: Product[];
 }
 
-const  UserTable =  () => {
-    const [data, setData] = useState<Product[]>([]);
-    const [sideDrawer, setSideDrawer] = useState(false);
+const UserTable = () => {
+  const [data, setData] = useState<Product[]>([]);
+  const [sideDrawer, setSideDrawer] = useState(false);
 
-    const openSideDrawer = (product: Product) => {
-      setSideDrawer(true);
-    };
-
+  const openSideDrawer = (product: Product) => {
+    setSideDrawer(true);
+  };
 
   return (
     <div className="space-y-4 flex flex-col  items-center ">
@@ -44,43 +36,48 @@ const  UserTable =  () => {
         <Button label="Fetch Products" setData={setData} />
       </div>
       <div className=" w-2/3">
-      <Table className=" border-gray-100  flex flex-col items-center">
-        <TableCaption>A list of Products</TableCaption>
-        <TableHeader>
-          <TableRow className="flex w-96" >
-            <TableHead >Id</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead className="text-left">Category</TableHead>
-            <TableHead>Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.map((product) => {
-            return (
-              <TableRow key={product.id}>
-                <TableCell>{product.id}</TableCell>
-                <TableCell>{product.name}</TableCell>
-                <TableCell>{product.price}</TableCell>
-                <TableCell>{product.category}</TableCell>
-                <TableCell>
-                <EditButton
+        <Table className=" border-gray-100  flex flex-col items-center">
+          <TableCaption>A list of Products</TableCaption>
+          <TableHeader>
+            <TableRow className="flex w-96">
+              <TableHead>Id</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Price</TableHead>
+              <TableHead className="text-left">Category</TableHead>
+              <TableHead>Action</TableHead>
+
+              <AddProduct label="Add Product" />
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.map((product) => {
+              return (
+                <TableRow key={product.id}>
+                  <TableCell>{product.id}</TableCell>
+                  <TableCell>{product.name}</TableCell>
+                  <TableCell>{product.price}</TableCell>
+                  <TableCell>{product.category}</TableCell>
+                  <TableCell>
+                    <EditButton
                       label="Edit"
                       openSideDrawer={openSideDrawer}
                       product={product}
                     />
                     <button className="bg-red-500 p-2 text-white rounded ms-2">
-                      Delete
+                      <DeleteButton
+                        label="Delete"
+                        deleteProduct={deleteProduct}
+                        productId={product.id} 
+                      />
                     </button>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
       </div>
-    
-      </div>
+    </div>
   );
 };
 export default UserTable;
