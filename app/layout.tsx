@@ -16,7 +16,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body 
+        style={{
+          margin: 0,
+          padding: 0,
+          boxSizing: "border-box",
+          width: "100%",
+          height: "100%",
+        }}
+      className=
+      {inter.className}>{children}</body>
     </html>
   );
 }
