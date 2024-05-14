@@ -2,14 +2,14 @@
   "products": [
     {
       "id": "5",
-      "name": "Product 5",
-      "category": "Category 5",
-      "price": 600
+      "name": "mohi",
+      "category": "mohi",
+      "price": "mohi"
     },
     {
       "id": "6",
       "name": "Product 6",
-      "category": "Category 6",
+      "category": "600",
       "price": 600
     },
     {
@@ -110,6 +110,12 @@
     },
     {
       "id": "3aa7",
+      "name": "Adnan",
+      "price": "17",
+      "category": "17"
+    },
+    {
+      "id": "1835",
       "name": "Adnan",
       "price": "17",
       "category": "17"

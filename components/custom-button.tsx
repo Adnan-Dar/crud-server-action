@@ -2,6 +2,7 @@
 
 import { list } from "@/actions/products";
 import { Product } from "@/types/product";
+import { Button } from "@/components/ui/button";
 
 
 interface ButtonProps {
@@ -9,7 +10,7 @@ interface ButtonProps {
   setData: (data: Product[]) => void;
 }
 
-const Button = ({ label, setData }: ButtonProps) => {
+const CustomButton = ({ label, setData }: ButtonProps) => {
   const handleClick = async () => {
     const data = await list();
     console.log(data);
@@ -17,10 +18,10 @@ const Button = ({ label, setData }: ButtonProps) => {
   };
 
   return (
-    <button className="bg-blue-500 p-4 me-4 rounded" onClick={handleClick}>
+    <Button variant="secondary" className=" bg-blue-300 " onClick={handleClick}>
       {label}
-    </button>
+    </Button>
   );
 };
 
-export default Button;
+export default CustomButton;

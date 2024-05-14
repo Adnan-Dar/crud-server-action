@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button} from "@/components/ui/button";
 
 interface DeleteButtonProps {
     label: string;
@@ -32,9 +33,9 @@ export const DeleteButton = ({ label, deleteProduct, productId }: DeleteButtonPr
                     <button onClick={() => setShowConfirmation(false)}>No</button>
                 </div>
             ) : (
-                <button className="bg-red-500 p-2 text-white rounded ms-2" onClick={() => setShowConfirmation(true)}>
+                <Button variant="destructive" className="w-16" onClick={() => setShowConfirmation(true)}>
                     {label}
-                </button>
+                </Button>
             )}
         </>
     );

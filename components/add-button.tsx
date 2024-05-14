@@ -12,7 +12,7 @@ import {
     FormMessage,
   } from "@/components/ui/form";
   import { Input } from "@/components/ui/input";
-  import Button from "./custom-button";
+  import {Button} from "@/components/ui/button";
   import { Product } from "@/types/product";
   import { create } from "@/actions/products";
   import { useForm } from "react-hook-form";
@@ -24,7 +24,7 @@ import {
   export const AddProduct = ({ label }: AddProductProps) => {
     const onSubmit = async (data: Product) => {
       try {
-        await create(data); // Call the create function from the API module
+        await create(data); 
         console.log("Product created successfully");
       } catch (error) {
         console.error("Error creating product:", error);
@@ -36,7 +36,9 @@ import {
     return (
       <Sheet>
         <SheetTrigger>
-          <Button label={label} />
+          <Button>
+            {label}
+          </Button>
         </SheetTrigger>
         <SheetContent>
           <Form {...form}>
@@ -80,9 +82,9 @@ import {
                   </FormItem>
                 )}
               />
-              <button className="border-2 p-1 rounded-lg" type="submit">
+              <Button className="" type="submit">
                 Submit
-              </button>
+              </Button>
             </form>
           </Form>
         </SheetContent>
