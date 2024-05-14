@@ -1,11 +1,11 @@
 "use server";
 
 import { Product } from "@/types/product";
-import exp from "constants";
 
-export const list = async () => {
+
+export const list = async (pageNumber:Number, pageSize: Number) => {
     try {
-        const response = await fetch("http://localhost:3000/products");
+        const response = await fetch(`http://localhost:3000/products`);
         if (!response.ok) {
             throw new Error('Failed to fetch products');
         }

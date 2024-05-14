@@ -1,36 +1,50 @@
 "use client";
 
 import { Product } from "@/types/product";
-import { useState } from "react";
+import Search from "@/components/ui/custum-ui/search"; // Import the Search component
+import { Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import CustomButton from "@/components/custom-button";
 import { EditButton } from "@/components/edit-button";
 import { AddProduct } from "@/components/add-button";
 import { DeleteButton } from "@/components/del-button";
 import { deleteProduct } from "@/actions/products";
+import { Table } from "./ui/table";
 
 interface TableProps {
   data: Product[];
 }
 
-const UserTable = () => {
+const UserTable = (
+  {
+    searchParams,
+  }: {
+    searchParams?: {
+      query?: string;
+      page?: string;
+    };
+  }
+) => {
+  const query = searchParams?.query || '';
+  const currentPage = Number(searchParams?.page) || 1;
+
   const [data, setData] = useState<Product[]>([]);
   const [sideDrawer, setSideDrawer] = useState(false);
 
   const openSideDrawer = (product: Product) => {
     setSideDrawer(true);
-  };
+  }
 
   return (
     <div className="space-y-4 flex flex-col border-2 items-center">
-      <div className="flex justify-between w-3/5  items-center mt-10">
+      <Search /> {/* Render the Search component */}
+      <div className="flex justify-between w-3/5 items-center mt-10">
          <div>
           <CustomButton label="Fetch Products" setData={setData} />
         </div>
         <div className="">
           <AddProduct label="Add Product" />
         </div>
-       
       </div>
       <div className="border-2 w-3/5">
         <table className="w-full table-auto">

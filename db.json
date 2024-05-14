@@ -1,24 +1,6 @@
 {
   "products": [
     {
-      "id": "5",
-      "name": "mohi",
-      "category": "mohi",
-      "price": "mohi"
-    },
-    {
-      "id": "6",
-      "name": "Product 6",
-      "category": "600",
-      "price": 600
-    },
-    {
-      "id": "7",
-      "name": "Product 7",
-      "category": "Category 7",
-      "price": 700
-    },
-    {
       "id": "8",
       "name": "Product 8",
       "category": "Category 8",
