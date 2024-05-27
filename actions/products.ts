@@ -3,19 +3,28 @@
 import { Product } from "@/types/product";
 
 
-export const list = async (pageNumber:Number, pageSize: Number) => {
+export const list = async (query: string = ""): Promise<Product[]> => {
     try {
         const response = await fetch(`http://localhost:3000/products`);
         if (!response.ok) {
             throw new Error('Failed to fetch products');
         }
         const productsData = await response.json() as Product[];
+
+        // Filter products based on the query
+        if (query) {
+            return productsData.filter(product =>
+                product.name.toLowerCase().includes(query.toLowerCase())
+            );
+        }
+
         return productsData;
     } catch (error) {
         console.error('Error fetching products:', error);
         return []; 
     }
 };
+
 
 
 export const update = async (id, newData) => {

@@ -1,24 +1,6 @@
 {
   "products": [
     {
-      "id": "8",
-      "name": "Product 8",
-      "category": "Category 8",
-      "price": 800
-    },
-    {
-      "id": "9",
-      "name": "Product 9",
-      "category": "adnan",
-      "price": "9"
-    },
-    {
-      "id": "d854",
-      "name": "12",
-      "price": 12,
-      "category": "12"
-    },
-    {
       "id": "1d06",
       "name": "13",
       "price": 13,

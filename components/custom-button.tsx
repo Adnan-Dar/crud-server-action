@@ -12,6 +12,7 @@ interface ButtonProps {
 }
 
 const CustomButton = ({ label, setData }: ButtonProps) => {
+
   const handleClick = async () => {
     const data = await list();
     console.log(data);
