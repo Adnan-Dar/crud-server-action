@@ -2,8 +2,12 @@
 
 import { Product } from "@/types/product";
 
+interface PaginatedData<T> {
+    data: T[];
+    total: number;
+}
 
-export const list = async (query: string = ""): Promise<Product[]> => {
+export const list = async (query: string = "", page: number = 1, perPage: number = 5): Promise<PaginatedData<Product>> => {
     try {
         const response = await fetch(`http://localhost:3000/products`);
         if (!response.ok) {
@@ -12,18 +16,26 @@ export const list = async (query: string = ""): Promise<Product[]> => {
         const productsData = await response.json() as Product[];
 
         // Filter products based on the query
+        let filteredProducts = productsData;
         if (query) {
-            return productsData.filter(product =>
+            filteredProducts =  productsData.filter(product =>
                 product.name.toLowerCase().includes(query.toLowerCase())
             );
         }
 
-        return productsData;
+        // Pagination logic applied after filtering
+        const totalProducts = filteredProducts.length;
+        const start = (page - 1) * perPage;
+        const end = start + perPage;
+        const paginatedProducts = filteredProducts.slice(start, end);
+
+        return { data: paginatedProducts, total: totalProducts };
     } catch (error) {
         console.error('Error fetching products:', error);
-        return []; 
+        return { data: [], total: 0 };
     }
 };
+
 
 
 

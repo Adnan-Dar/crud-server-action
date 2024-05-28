@@ -2,27 +2,34 @@
 
 import { Product } from "@/types/product";
 import { useEffect, useState } from "react";
-import { list } from "@/actions/products";
+import { list, deleteProduct } from "@/actions/products";
 import { EditButton } from "@/components/edit-button";
 import { AddProduct } from "@/components/add-button";
 import { DeleteButton } from "@/components/del-button";
-import { deleteProduct } from "@/actions/products";
+import PaginationControls from "./ui/custum-ui/pagination";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface UserTableProps {
   query: string;
   currentPage: number;
+  perPage: number;
 }
 
-export const UserTable: React.FC<UserTableProps> = ({ query, currentPage }) => {
+export const UserTable: React.FC<UserTableProps> = ({ query, currentPage, perPage }) => {
   const [data, setData] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sideDrawer, setSideDrawer] = useState(false);
+  const [totalProducts, setTotalProducts] = useState(0);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const productList = await list(query);
-        setData(productList);
+        const productList = await list(query, currentPage, perPage);
+        setData(productList.data);
+        setTotalProducts(productList.total);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching product list:", error);
@@ -31,7 +38,7 @@ export const UserTable: React.FC<UserTableProps> = ({ query, currentPage }) => {
     };
 
     fetchData();
-  }, [query]);
+  }, [query, currentPage, perPage]);
 
   const openSideDrawer = (product: Product) => {
     setSideDrawer(true);
@@ -41,13 +48,13 @@ export const UserTable: React.FC<UserTableProps> = ({ query, currentPage }) => {
     return <div>Loading...</div>; 
   }
 
+  const totalPages = Math.ceil(totalProducts / perPage);
+  const hasNextPage = currentPage < totalPages;
+  const hasPrevPage = currentPage > 1;
+
   return (
-    <div className="space-y-4 flex flex-col border-2 items-center">
-      <div className="flex justify-between w-3/5 items-center mt-10">
-        <div className="">
-          <AddProduct label="Add Product" />
-        </div>
-      </div>
+    <div className="space-y-4 flex flex-col items-center">
+     
       <div className="border-2 w-3/5">
         <table className="w-full table-auto">
           <thead>
@@ -88,6 +95,11 @@ export const UserTable: React.FC<UserTableProps> = ({ query, currentPage }) => {
             ))}
           </tbody>
         </table>
+        <PaginationControls 
+          hasNextPage={hasNextPage}
+          hasPrevPage={hasPrevPage}
+          totalPages={totalPages}
+        />
       </div>
     </div>
   );
